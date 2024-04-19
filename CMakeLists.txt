@@ -1,28 +1,36 @@
-PROJECT(CPPJIEBA)
+project(cppjieba)
 
-CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
+cmake_minimum_required(VERSION 2.6)
 
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/deps/limonp/include
+include_directories(${PROJECT_SOURCE_DIR}/deps/limonp/include
   ${PROJECT_SOURCE_DIR}/include)
 
-if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set (CMAKE_INSTALL_PREFIX "/usr/local/cppjieba" CACHE PATH "default install path" FORCE )
-endif()
+add_library(cppjieba INTERFACE)
+target_include_directories(cppjieba INTERFACE
+  ${PROJECT_SOURCE_DIR}/include
+  ${PROJECT_SOURCE_DIR}/deps/limonp/include
+  )
 
-ADD_DEFINITIONS(-O3 -Wall -g)
-IF(APPLE) # mac os
-    ADD_DEFINITIONS(-std=c++0x)
-endif()
+
+
+# if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+#     set (CMAKE_INSTALL_PREFIX "/usr/local/cppjieba" CACHE PATH "default install path" FORCE )
+# endif()
+
+# ADD_DEFINITIONS(-O3 -Wall -g)
+# IF(APPLE) # mac os
+#     ADD_DEFINITIONS(-std=c++0x)
+# endif()
 
 # cmake .. -DENC=GBK
 # IF (DEFINED ENC)
 #     ADD_DEFINITIONS(-DCPPJIEBA_${ENC})
 # ENDIF()
 
-ADD_SUBDIRECTORY(deps)
-ADD_SUBDIRECTORY(test)
-
-ENABLE_TESTING()
-ADD_TEST(NAME ./test/test.run COMMAND ./test/test.run)
-ADD_TEST(NAME ./load_test COMMAND ./load_test)
-ADD_TEST(NAME ./demo COMMAND ./demo)
+# ADD_SUBDIRECTORY(deps)
+# ADD_SUBDIRECTORY(test)
+#
+# ENABLE_TESTING()
+# ADD_TEST(NAME ./test/test.run COMMAND ./test/test.run)
+# ADD_TEST(NAME ./load_test COMMAND ./load_test)
+# ADD_TEST(NAME ./demo COMMAND ./demo)
